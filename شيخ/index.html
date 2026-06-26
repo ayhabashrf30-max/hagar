@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>القارئ الطبيب إبراهيم علي حجر | خادم القرآن الكريم</title>
-    <!-- Font Awesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- خطوط عربية راقية -->
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi+Fun:wght@400;700&family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
-    
     <style>
         * {
             margin: 0;
@@ -17,17 +14,14 @@
         }
 
         body {
-            background: #0a1a1a;
             font-family: 'Cairo', sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-            /* طبقات الخلفية الإسلامية */
-            background-color: #0c2a2a;
+            background: #0c2a2a;
             background-image: 
                 radial-gradient(ellipse at 20% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
@@ -35,12 +29,10 @@
                 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><path d="M50 10 L60 30 L82 32 L65 46 L70 68 L50 56 L30 68 L35 46 L18 32 L40 30 Z" fill="%23d4af37"/><path d="M50 0 L55 20 L75 20 L58 32 L63 52 L50 40 L37 52 L42 32 L25 20 L45 20 Z" fill="none" stroke="%23d4af37" stroke-width="0.5"/></svg>'),
                 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.02"><circle cx="40" cy="40" r="30" fill="none" stroke="%23d4af37" stroke-width="1"/><circle cx="160" cy="160" r="50" fill="none" stroke="%23d4af37" stroke-width="0.7"/><path d="M20 100 Q50 80 80 100 T140 100" fill="none" stroke="%2321975a" stroke-width="0.8"/></svg>')
             ;
-            background-size: cover, cover, cover, 180px, 220px;
-            background-position: center;
-            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* وميض ذهبي ناعم على الأطراف */
         body::before {
             content: '';
             position: fixed;
@@ -48,6 +40,51 @@
             background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.04) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
+        }
+
+        /* الشاشة الترحيبية (Splash Screen) */
+        #splash {
+            position: fixed;
+            inset: 0;
+            background: #081515;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease;
+            opacity: 1;
+            pointer-events: all;
+            backdrop-filter: blur(10px);
+        }
+
+        #splash.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #splash .verse {
+            font-family: 'Amiri', serif;
+            font-size: 3rem;
+            color: #e4c562;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.7);
+            text-align: center;
+            padding: 20px;
+            line-height: 1.8;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { text-shadow: 0 0 20px rgba(212,175,55,0.6); }
+            50% { text-shadow: 0 0 45px rgba(212,175,55,1); }
+            100% { text-shadow: 0 0 20px rgba(212,175,55,0.6); }
+        }
+
+        #splash .sub-verse {
+            font-family: 'Cairo', sans-serif;
+            color: #b3c9c9;
+            margin-top: 10px;
+            font-size: 1.1rem;
         }
 
         .main-card {
@@ -61,15 +98,11 @@
             border: 1px solid rgba(212, 175, 55, 0.25);
             border-radius: 40px;
             padding: 45px 30px 35px;
-            box-shadow: 
-                0 30px 60px rgba(0,0,0,0.6),
-                0 0 80px rgba(33, 147, 90, 0.15),
-                inset 0 1px 0 rgba(255,255,255,0.04);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 80px rgba(33, 147, 90, 0.15), inset 0 1px 0 rgba(255,255,255,0.04);
             text-align: center;
             transition: all 0.4s ease;
         }
 
-        /* زخرفة إطار حول البطاقة */
         .main-card::after {
             content: '';
             position: absolute;
@@ -89,7 +122,6 @@
             100% { border-color: rgba(212, 175, 55, 0.08); }
         }
 
-        /* صورة البروفايل */
         .profile-pic {
             width: 150px;
             height: 150px;
@@ -100,6 +132,12 @@
             padding: 4px;
             box-shadow: 0 0 40px rgba(212, 175, 55, 0.5), 0 10px 30px rgba(0,0,0,0.7);
             animation: floatGlow 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.03);
         }
 
         @keyframes floatGlow {
@@ -114,9 +152,9 @@
             object-fit: cover;
             border: 3px solid #0a1f1f;
             display: block;
+            pointer-events: none; /* لضمان أن الـ onclick على الـ div */
         }
 
-        /* زخرفة نجمية حول الصورة */
         .profile-pic::before {
             content: '۞';
             position: absolute;
@@ -128,6 +166,7 @@
             opacity: 0.9;
             text-shadow: 0 0 20px rgba(212,175,55,0.7);
             animation: sparkle 2s infinite;
+            pointer-events: none;
         }
 
         @keyframes sparkle {
@@ -135,7 +174,6 @@
             50% { opacity: 1; text-shadow: 0 0 25px rgba(212,175,55,0.9); }
         }
 
-        /* الاسم */
         .name-arabic {
             font-family: 'Amiri', 'Reem Kufi Fun', serif;
             font-size: 2.4rem;
@@ -151,7 +189,6 @@
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
-        /* المسمى */
         .title-badge {
             display: inline-block;
             background: rgba(212, 175, 55, 0.1);
@@ -180,7 +217,6 @@
             font-size: 0.8rem;
         }
 
-        /* خط فاصل */
         .divider {
             width: 80px;
             height: 2px;
@@ -200,7 +236,6 @@
             padding: 0 10px;
         }
 
-        /* أزرار التواصل */
         .links-container {
             display: flex;
             flex-direction: column;
@@ -249,7 +284,6 @@
             transform: scale(1.15);
         }
 
-        /* زر الكارت الشخصي */
         .cart-section {
             margin: 30px 0 20px;
             position: relative;
@@ -323,7 +357,7 @@
             opacity: 1;
         }
 
-        /* مودال تكبير الصورة */
+        /* المودال الموحد لتكبير الصور */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -352,6 +386,7 @@
             box-shadow: 0 30px 70px rgba(0,0,0,0.8), 0 0 80px rgba(212,175,55,0.35);
             transform: scale(0.8);
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            object-fit: contain;
         }
 
         .modal-overlay.active img {
@@ -373,13 +408,13 @@
             justify-content: center;
             cursor: pointer;
             transition: 0.3s;
+            z-index: 1001;
         }
         .close-hint:hover {
             background: rgba(212,175,55,0.3);
             color: #ffd966;
         }
 
-        /* تذييل */
         .footer-note {
             margin-top: 25px;
             color: #6b8b8b;
@@ -393,7 +428,16 @@
             font-weight: 700;
         }
 
-        /* إخفاء كامل للـ modal عندما لا يكون نشطاً */
+        .powered-by {
+            text-align: center;
+            color: rgba(180, 180, 160, 0.5);
+            font-size: 0.75rem;
+            margin-top: 20px;
+            z-index: 1;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
         @media (max-width: 500px) {
             .main-card {
                 padding: 35px 20px 30px;
@@ -410,55 +454,51 @@
                 width: 130px;
                 height: 130px;
             }
+            #splash .verse {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Splash Screen -->
+    <div id="splash">
+        <div class="verse">﴿ وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا ﴾</div>
+        <div class="sub-verse">صدق الله العظيم</div>
+    </div>
 
+    <!-- المحتوى الرئيسي -->
     <div class="main-card">
-        <!-- صورة البروفايل الشخصية (استبدل src بصورتك) -->
-        <div class="profile-pic">
+        <!-- صورة البروفايل قابلة للتكبير -->
+        <div class="profile-pic" onclick="openImageModal('profile.jpg')" title="اضغط للتكبير">
             <img src="profile.jpg" alt="القارئ الطبيب إبراهيم علي حجر" onerror="this.style.display='none'; this.parentNode.style.background='linear-gradient(135deg, #1a3a2a, #0e2a2a)'; this.parentNode.innerHTML+='<span style=position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#d4af37;font-size:3rem;>﷽</span>';">
         </div>
 
-        <!-- الاسم بخط مزخرف -->
         <h1 class="name-arabic">القارئ الطبيب<br>إبراهيم علي حجر</h1>
 
-        <!-- مسمى خادم القرآن -->
         <div class="title-badge">
             <i class="fas fa-mosque"></i>  خادمُ القرآن الكريم
         </div>
 
-        <!-- وصف إضافي -->
         <div class="subtitle">
             <i class="fas fa-satellite-dish"></i> قارئٌ بالقنوات الفضائية والتليفزيون المصري
         </div>
 
         <div class="divider"></div>
 
-        <!-- أزرار التواصل الاجتماعي -->
         <div class="links-container">
-            <!-- فيسبوك -->
             <a href="https://www.facebook.com/share/1Gpt4jU1Fx/" target="_blank" rel="noopener" class="social-btn">
                 <i class="fab fa-facebook-f"></i> فيسبوك
             </a>
-
-            <!-- واتساب -->
             <a href="https://wa.me/201004921550" target="_blank" rel="noopener" class="social-btn">
                 <i class="fab fa-whatsapp"></i> واتساب
             </a>
-
-            <!-- تيك توك -->
             <a href="https://www.tiktok.com/@ebrahim.hajar1" target="_blank" rel="noopener" class="social-btn">
                 <i class="fab fa-tiktok"></i> تيك توك
             </a>
-
-            <!-- إنستغرام -->
             <a href="https://www.instagram.com/ebrahim_hagar.10" target="_blank" rel="noopener" class="social-btn">
                 <i class="fab fa-instagram"></i> إنستغرام
             </a>
-
-            <!-- رقم الهاتف -->
             <a href="tel:01004921550" class="social-btn">
                 <i class="fas fa-phone-alt"></i> اتصل بنا
             </a>
@@ -466,54 +506,74 @@
 
         <div class="divider"></div>
 
-        <!-- قسم الكارت الشخصي -->
+        <!-- الكارت الشخصي -->
         <div class="cart-section">
             <div class="cart-label">
                 <i class="fas fa-id-card"></i> الكارت الشخصي
             </div>
-            <!-- الصورة المصغرة، عند الضغط تكبر -->
-            <div class="cart-thumb" onclick="openModal()" title="اضغط للتكبير">
-                <img src="cart.jpg" alt="الكارت الشخصي - القارئ الطبيب إبراهيم علي حجر" onerror="this.style.display='none'; this.parentNode.innerHTML+='<div style=color:#d4af37;padding:40px;text-align:center;>↗ اضغط لرؤية الكارت</div>';">
+            <div class="cart-thumb" onclick="openImageModal('cart.jpg')" title="اضغط للتكبير">
+                <img src="cart.jpg" alt="الكارت الشخصي" onerror="this.style.display='none'; this.parentNode.innerHTML+='<div style=color:#d4af37;padding:40px;text-align:center;>↗ اضغط لرؤية الكارت</div>';">
             </div>
         </div>
 
-        <!-- تذييل بآية قرآنية أو دعاء -->
         <div class="footer-note">
             <span>﴿</span> وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا <span>﴾</span><br>
             <span style="font-size:0.7rem;">اللهم اجعله شفيعاً لنا يوم القيامة</span>
         </div>
     </div>
 
-    <!-- المودال (النافذة المنبثقة) لتكبير صورة الكارت -->
+    <!-- تذييل التصميم -->
+    <div class="powered-by">Powered by Ehab Ashraf © 2026</div>
+
+    <!-- مودال تكبير الصور (موحد) -->
     <div class="modal-overlay" id="modal" onclick="closeModal()">
         <span class="close-hint" onclick="closeModal()">&times;</span>
-        <img src="cart.jpg" alt="الكارت الشخصي مكبر" id="modalImg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22400%22><rect width=%22300%22 height=%22400%22 fill=%22%230e2a2a%22/><text x=%22150%22 y=%22200%22 text-anchor=%22middle%22 fill=%22%23d4af37%22 font-size=%2220%22>الرجاء إضافة صورة cart.jpg</text></svg>';">
+        <img src="" alt="صورة مكبرة" id="modalImg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22400%22><rect width=%22300%22 height=%22400%22 fill=%22%230e2a2a%22/><text x=%22150%22 y=%22200%22 text-anchor=%22middle%22 fill=%22%23d4af37%22 font-size=%2220%22>الصورة غير متاحة</text></svg>';">
     </div>
 
     <script>
-        // وظائف فتح وإغلاق المودال
-        function openModal() {
-            document.getElementById('modal').classList.add('active');
-            document.body.style.overflow = 'hidden'; // منع التمرير خلف المودال
+        // Splash Screen
+        window.addEventListener('load', function() {
+            const splash = document.getElementById('splash');
+            setTimeout(() => {
+                splash.classList.add('fade-out');
+            }, 3500);
+            // بعد انتهاء التحول (0.8s) نخفي العنصر تماماً
+            setTimeout(() => {
+                splash.style.display = 'none';
+            }, 4300);
+        });
+
+        // وظائف المودال الموحد
+        function openImageModal(src) {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = src;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-            document.body.style.overflow = ''; // إعادة التمرير
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            // نزيل المصدر بعد الإغلاق لتفادي تحميل غير ضروري
+            setTimeout(() => {
+                document.getElementById('modalImg').src = '';
+            }, 400);
         }
 
-        // إغلاق المودال بزر Escape
+        // إغلاق بزر Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
             }
         });
 
-        // منع إغلاق المودال عند الضغط على الصورة نفسها (الضغط على الخلفية فقط يغلقه)
+        // منع إغلاق المودال عند الضغط على الصورة نفسها
         document.getElementById('modalImg').addEventListener('click', function(e) {
             e.stopPropagation();
         });
     </script>
-
 </body>
 </html>
